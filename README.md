@@ -20,8 +20,8 @@ Install:
 ```bash
 apt-get install nmap
 go get github.com/google/hilbert
-go get github.com/google/netmap
-go install netmap
+go get github.com/finfinack/netmap
+go install github.com/finfinack/netmap
 ```
 
 Usage:
@@ -44,8 +44,17 @@ Usage of netmap:
 The following runs a host discovery scan against the given network and
 writes the rendered image out as a PNG.
 ```bash
-netmap --file=/tmp/heatmap.png --network=192.168.0.0/24
+netmap --file=/tmp/heatmap.png --network=10.0.0.0/16
 ```
+
+The result may look like the following:
+
+![netmap sample](images/sample.png "netmap sample")
+
+The more "heated" a pixel is, the faster was its response time. The heat
+gradient is currently set as follows (from cold to hot):
+
+black - blue - cyan - green - yellow - red - white
 
 ## Licence (Apache 2)
 

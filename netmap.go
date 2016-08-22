@@ -40,7 +40,7 @@ import (
 
 var (
 	file        = flag.String("file", "", "full path where the generated heatmap should be written to (.jpg or .png)")
-	network     = flag.String("network", "10.0.1.0/24", "network to gather data and generate heatmap for in CIDR notation (e.g. 192.168.0.1/24)")
+	network     = flag.String("network", "10.0.0.0/24", "network to gather data and generate heatmap for in CIDR notation (e.g. 192.168.1.0/24)")
 	scantype    = flag.String("scantype", "hostup", "type of scan to launch: hostup, webports, defaultports, allports")
 	transparent = flag.Bool("transparent", false, "boolean flag whether or not to generate a transparent image")
 	help        = flag.Bool("help", false, "boolean flag to print this help message")
