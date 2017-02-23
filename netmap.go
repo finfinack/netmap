@@ -120,7 +120,7 @@ func renderImage(n *net.IPNet, t bool, st ScanType, hosts []Host) (image.Image, 
 		draw.Draw(canvas, canvas.Bounds(), &image.Uniform{colors[0]}, image.ZP, draw.Src)
 	}
 
-	hil, err := hilbert.New(int(l))
+	hil, err := hilbert.NewHilbert(int(l))
 	if err != nil {
 		return nil, fmt.Errorf("unable to create hilbert map for given network: %s", err)
 	}
