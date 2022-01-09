@@ -20,15 +20,10 @@ import (
 	"fmt"
 	"io"
 	"net"
-	"os"
 	"os/exec"
 	"strconv"
 	"strings"
 )
-
-func openXml(filename string) (io.Reader, error) {
-	return os.Open(filename)
-}
 
 type xnDoc struct {
 	Hosts []xnHost `xml:"host"`

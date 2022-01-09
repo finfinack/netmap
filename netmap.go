@@ -22,6 +22,7 @@ Notes:
 package main
 
 import (
+	"errors"
 	"flag"
 	"fmt"
 	"image"
@@ -47,13 +48,13 @@ var (
 
 	// Colors defining the gradient in the heatmap. The higher the index, the warmer.
 	colors = map[int]color.RGBA{
-		0: color.RGBA{0, 0, 0, 255},       // black
-		1: color.RGBA{0, 0, 255, 255},     // blue
-		2: color.RGBA{0, 255, 255, 255},   // cyan
-		3: color.RGBA{0, 255, 0, 255},     // green
-		4: color.RGBA{255, 255, 0, 255},   // yellow
-		5: color.RGBA{255, 0, 0, 255},     // red
-		6: color.RGBA{255, 255, 255, 255}, // white
+		0: {0, 0, 0, 255},       // black
+		1: {0, 0, 255, 255},     // blue
+		2: {0, 255, 255, 255},   // cyan
+		3: {0, 255, 0, 255},     // green
+		4: {255, 255, 0, 255},   // yellow
+		5: {255, 0, 0, 255},     // red
+		6: {255, 255, 255, 255}, // white
 	}
 )
 
@@ -63,7 +64,8 @@ func getColor(lvl uint16) color.RGBA {
 	// Return early for the extremes.
 	if lvl <= 0 {
 		return colors[0]
-	} else if lvl >= math.MaxUint16 {
+	}
+	if lvl == math.MaxUint16 {
 		return colors[len(colors)-1]
 	}
 	// Find the first color in the gradient where the "level" is higher than the level we're looking for.
@@ -104,7 +106,7 @@ func getLength(n *net.IPNet) (int, error) {
 	}
 	l := math.Sqrt(math.Pow(float64(2), float64(bits-ones)))
 	if l != math.Ceil(l) {
-		return 0, fmt.Errorf("please choose a network that allows a square image (e.g. /24, /16).")
+		return 0, errors.New("please choose a network that allows a square image (e.g. /24, /16)")
 	}
 	return int(l), nil
 }
@@ -117,7 +119,7 @@ func renderImage(n *net.IPNet, t bool, st ScanType, hosts []Host) (image.Image, 
 		Max: image.Point{l, l},
 	})
 	if !t {
-		draw.Draw(canvas, canvas.Bounds(), &image.Uniform{colors[0]}, image.ZP, draw.Src)
+		draw.Draw(canvas, canvas.Bounds(), &image.Uniform{colors[0]}, canvas.Bounds().Min, draw.Src)
 	}
 
 	hil, err := hilbert.NewHilbert(int(l))
@@ -169,7 +171,7 @@ func writeImage(path string, canvas image.Image) error {
 	case strings.HasSuffix(path, ".png"):
 		png.Encode(f, canvas)
 	case strings.HasSuffix(path, ".jpg"):
-		jpeg.Encode(f, canvas, &jpeg.Options{jpeg.DefaultQuality})
+		jpeg.Encode(f, canvas, &jpeg.Options{Quality: jpeg.DefaultQuality})
 	}
 	return nil
 }
