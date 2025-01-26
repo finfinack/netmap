@@ -196,7 +196,6 @@ func main() {
 
 	// Set up logging
 	log := logging.NewLogger("MAIN")
-	log.SetWriter(os.Stdout) // stdout is the default, just a demo here
 	lvl, err := logging.LevelToValue(*logLevel)
 	if err != nil {
 		log.Fatalf("Unable to map %q to a log level", *logLevel)
