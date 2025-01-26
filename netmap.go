@@ -30,12 +30,12 @@ import (
 	"image/draw"
 	"image/jpeg"
 	"image/png"
-	"log"
 	"math"
 	"net"
 	"os"
 	"strings"
 
+	"github.com/finfinack/logger/logging"
 	"github.com/google/hilbert"
 )
 
@@ -45,6 +45,7 @@ var (
 	scantype    = flag.String("scantype", "hostup", "type of scan to launch: hostup, webports, defaultports, allports")
 	transparent = flag.Bool("transparent", false, "boolean flag whether or not to generate a transparent image")
 	help        = flag.Bool("help", false, "boolean flag to print this help message")
+	logLevel    = flag.String("loglevel", "INFO", "Log level to use.")
 
 	// Colors defining the gradient in the heatmap. The higher the index, the warmer.
 	colors = map[int]color.RGBA{
@@ -192,6 +193,16 @@ func printUsage(m string, fatal bool) {
 
 func main() {
 	flag.Parse()
+
+	// Set up logging
+	log := logging.NewLogger("MAIN")
+	log.SetWriter(os.Stdout) // stdout is the default, just a demo here
+	lvl, err := logging.LevelToValue(*logLevel)
+	if err != nil {
+		log.Fatalf("Unable to map %q to a log level", *logLevel)
+	}
+	logging.SetMinLogLevel(lvl)
+	defer log.Shutdown()
 
 	if *help {
 		printUsage("", false)

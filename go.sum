@@ -1,2 +1,4 @@
+github.com/finfinack/logger v0.0.0-20250119092301-f3198d7c498e h1:QnJw65EQz+7HLrjjhgOXBkB5F1lXKW+AZwox2Kn03NA=
+github.com/finfinack/logger v0.0.0-20250119092301-f3198d7c498e/go.mod h1:DeSqO+nmQ0S9BiXlLYa+Z7o62xDw6VGSF+NToDg4fvM=
 github.com/google/hilbert v0.0.0-20181122061418-320f2e35a565 h1:KBAlCAY6eLC44FiEwbzEbHnpVlw15iVM4ZK8QpRIp4U=
 github.com/google/hilbert v0.0.0-20181122061418-320f2e35a565/go.mod h1:xn6EodFfRzV6j8NXQRPjngeHWlrpOrsZPKuuLRThU1k=
