@@ -6,19 +6,16 @@ that on a Hilbert curve as a square image.
 The currently sole information source is nmap. It's used to run discovery
 and port scans and render the information. The following metrics are used to
 determine the color of a pixel:
+
 * for host discovery scans, the RTT
 * for port scans, the number of open ports
-
-## Disclaimer
-
-This is not an official Google product.
 
 ## How to use
 
 Install:
 
 ```bash
-apt-get install nmap
+apt install nmap
 go get github.com/google/hilbert
 go get github.com/finfinack/netmap
 go install github.com/finfinack/netmap
