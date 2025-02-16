@@ -12,19 +12,10 @@ determine the color of a pixel:
 
 ## How to use
 
-Install:
-
-```bash
-apt install nmap
-go get github.com/google/hilbert
-go get github.com/finfinack/netmap
-go install github.com/finfinack/netmap
-```
-
 Usage:
 
 ```bash
-netmap --help
+go run . --help
 Usage of netmap:
   -file string
         full path where the generated heatmap should be written to (.jpg or .png)
@@ -40,8 +31,9 @@ Usage of netmap:
 
 The following runs a host discovery scan against the given network and
 writes the rendered image out as a PNG.
+
 ```bash
-netmap --file=/tmp/heatmap.png --network=10.0.0.0/16
+go run . --file=/tmp/heatmap.png --network=10.0.0.0/16
 ```
 
 The result may look like the following:
